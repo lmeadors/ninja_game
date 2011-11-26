@@ -1,0 +1,23 @@
+settings = {
+  orientation = {
+    default = "landscapeRight",
+    supported = {"landscapeRight", "landscapeLeft"},
+  },
+  android = {
+    versionCode = "1",
+    androidPermissions = {
+      "android.permission.INTERNET"
+    },
+  },
+  iphone = { 
+    plist = {
+      CFBundleShortVersionString = "1.0", 
+      CFBundleVersion = "1.0.0",
+      CFBundleIdentifier = "com.ludicroussoftware.MissileCommand",
+      CFBundleDisplayName = "MissileCommand", 
+      UIPrerenderedIcon = true, 
+      UIApplicationExitsOnSuspend = true, 
+      UIAppFonts = { "ArmorPiercing.ttf" },
+    },
+  },
+}
