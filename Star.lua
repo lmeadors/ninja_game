@@ -1,6 +1,4 @@
 local Star = {}
--- Star.__index = Star
--- module(..., package.seeall);
 
 function Star.new(originX, originY, touchX, touchY)
   assert(originX, "Required parameter missing")
@@ -8,8 +6,8 @@ function Star.new(originX, originY, touchX, touchY)
   assert(touchX, "Required parameter missing")
   assert(touchY, "Required parameter missing")
 
-  local speed
   local star = display.newGroup()
+
   star.id = "star"
   star.speed = 2000
   star.touchX = touchX

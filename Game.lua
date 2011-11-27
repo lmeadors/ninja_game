@@ -11,6 +11,7 @@ function Game.new()
   
   -- modules
   Star = require "Star"
+  BadGuy = require "BadGuy"
   
   -- display objects 
   local sky, player
@@ -20,6 +21,7 @@ function Game.new()
   
   -- display groups
   local stars
+  local badGuys
   
   -- this is local only
   function initGround()
@@ -48,12 +50,29 @@ function Game.new()
   
   function startListeners()
     Runtime:addEventListener("touch", fireMissile)
+    Runtime:addEventListener("enterFrame", updateFrame)
   end
 
   function stopListeners()
+    Runtime:removeEventListener("enterFrame", updateFrame)
     Runtime:removeEventListener("touch", fireMissile)
   end
 
+  function updateFrame(event)
+    if math.random(1, 30) == 1 then
+      -- print "fire a bad guy now!"
+      fireBadGuy()
+    end
+  end
+  
+  function fireBadGuy()
+    local badGuyX = _G.STAGE_WIDTH + 40
+    local badGuyY = math.random(_G.STAGE_TOP, _G.STAGE_HEIGHT)
+    print("badGuyX", badGuyX)
+    local badGuy = BadGuy.new(badGuyX, badGuyY, math.random(2000, 5000))
+    badGuy:run()
+  end
+  
   function fireMissile(event)
     if event.phase == "ended" then
       if event.x > player.x then
