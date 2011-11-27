@@ -1,6 +1,7 @@
 local Star = {}
 
 function Star.new(originX, originY, touchX, touchY)
+
   assert(originX, "Required parameter missing")
   assert(originY, "Required parameter missing")
   assert(touchX, "Required parameter missing")
@@ -20,6 +21,7 @@ function Star.new(originX, originY, touchX, touchY)
     starImage:setFillColor(255,255,255,128)
     starImage:setStrokeColor(0,0,0,128)
     starImage.strokeWidth = 1
+    starImage.type = "Star"
     return starImage  
   end
   
@@ -36,8 +38,9 @@ function Star.new(originX, originY, touchX, touchY)
     local onCompleteCallback = function(starImage)
       display.remove(starImage)
     end
-    
-    transition.to(self:getImage(), {time=self.speed, x=targetX, y=targetY, onComplete=onCompleteCallback})
+    local image = self:getImage()
+    physics.addBody(image, {density=1, radius=10})
+    transition.to(image, {time=self.speed, x=targetX, y=targetY, onComplete=onCompleteCallback})
   end
 
   

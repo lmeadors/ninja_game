@@ -13,11 +13,12 @@ function BadGuy.new(originX, originY, speed)
   badGuy.speed = speed
 
   function badGuy:getImage()
-    print("originX:", self.originX)
+    -- print("originX:", self.originX)
     local badGuyImage = display.newCircle(self, self.originX, self.originY, 30)
     badGuyImage:setFillColor(0,0,0,128)
     badGuyImage:setStrokeColor(255,255,255,128)
     badGuyImage.strokeWidth = 2
+    badGuyImage.type="BadGuy"
     return badGuyImage  
     
   end
@@ -29,9 +30,12 @@ function BadGuy.new(originX, originY, speed)
     
     local onCompleteCallback = function(image)
       display.remove(image)
+      
     end
     
-    transition.to(self:getImage(), {time=self.speed, x=targetX, y=targetY, onComplete=onCompleteCallback})
+    local image = self:getImage()
+    physics.addBody(image, {density=1, radius=30})
+    transition.to(image, {time=self.speed, x=targetX, y=targetY, onComplete=onCompleteCallback})
     
   end
   
